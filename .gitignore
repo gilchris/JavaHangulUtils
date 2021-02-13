@@ -5,5 +5,10 @@
 build
 bin/
 
+.project
+.classpath
+
 .settings/
 .vscode/
+.history/
+*.code-workspace
