@@ -66,6 +66,34 @@ public class HangulUtilsTest {
     }
 
     @Test
+    public void testGetAllJaum_한글조합() {
+        assertEquals("ㄱㄱ", HangulUtils.getAllJaum("가격"));
+        assertEquals("ㄲㅁㄱ", HangulUtils.getAllJaum("까마귀"));
+        assertEquals("ㄴㅇ", HangulUtils.getAllJaum("노을"));
+        assertEquals("ㄷㄴ", HangulUtils.getAllJaum("동네"));
+        assertEquals("ㄸㅂㄸㅂ", HangulUtils.getAllJaum("뚜벅뚜벅"));
+        assertEquals("ㄹㅂ", HangulUtils.getAllJaum("루비"));
+        assertEquals("ㅂ", HangulUtils.getAllJaum("배"));
+        assertEquals("ㅃㄱㅅ", HangulUtils.getAllJaum("빨강색"));
+        assertEquals("ㅅㅅㅈ", HangulUtils.getAllJaum("소세지"));
+        assertEquals("ㅆㄸ", HangulUtils.getAllJaum("쑥떡"));
+        assertEquals("ㅇㄹㄴㄹ", HangulUtils.getAllJaum("우리나라"));
+        assertEquals("ㅈㅁㅂ", HangulUtils.getAllJaum("주먹밥"));
+        assertEquals("ㅉㅈㅁ", HangulUtils.getAllJaum("짜장면"));
+        assertEquals("ㅊㅈㅊㅈ", HangulUtils.getAllJaum("추적추적"));
+        assertEquals("ㅋㅍ", HangulUtils.getAllJaum("카페"));
+        assertEquals("ㅌㅁㅌ", HangulUtils.getAllJaum("토마토"));
+        assertEquals("ㅍㄷ", HangulUtils.getAllJaum("포도"));
+        assertEquals("ㅎㄴ", HangulUtils.getAllJaum("하늘"));
+    }
+
+    @Test
+    public void testGetAllJaum_섞어서() {
+        assertEquals("ㄱㄱㅇ#400ㅇㅇㄴㄷ#", HangulUtils.getAllJaum("가격은 400원입니다."));
+        assertEquals("ENGLISHㄴ#ㅆ#DEFFICULTㅎ#", HangulUtils.getAllJaum("English는 쏘 defficult해!"));
+    }
+
+    @Test
     public void testConvertNFDToNFC() {
         String a = new StringBuilder()
             .append(Character.toString(4352)) // ㄱ

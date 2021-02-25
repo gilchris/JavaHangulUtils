@@ -6,14 +6,12 @@ class HangulUtils {
     private static final String[] JAUM_COMPATIVILITY = new String[] { "ㄱ", "ㄲ", "", "ㄴ", "", "", "ㄷ", "ㄸ", "ㄹ", "", "", "", "", "", "", "", "ㅁ", "ㅂ", "ㅃ", "", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ" };
 
     /**
-     * Finding first jaum
+     * Finding jaum
      * 
-     * @param in text for finding first jaum
+     * @param in CodePoint for finding jaum
      * @return
      */
-    public static final String getFirstJaum(String in) {
-        int intCodePoint = in.codePointAt(0);
-
+    public static final String getJaum(int intCodePoint) {
         // 조합 한글
         int c = 44032; // 0xAC00 가
         for (short i = 0; i < 19; i++) {
@@ -61,6 +59,30 @@ class HangulUtils {
 
         // 그 외
         return "#";
+    }
+
+    /**
+     * Finding first jaum
+     * 
+     * @param in text for finding first jaum
+     * @return
+     */
+    public static final String getFirstJaum(String in) {
+        return getJaum(in.codePointAt(0));
+    }
+
+    /**
+     * Finding all jaum
+     * 
+     * @param in text for finding all jaum
+     * @return
+     */
+    public static final String getAllJaum(String in) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0, l = in.length(); i < l; i++) {
+            sb.append(getJaum(in.codePointAt(i)));
+        }
+        return sb.toString();
     }
 
     /**

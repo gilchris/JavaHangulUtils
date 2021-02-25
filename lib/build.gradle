@@ -34,6 +34,6 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-version = '0.1.0'
+version = '0.5.0'
 sourceCompatibility = 11
 targetCompatibility = 11
