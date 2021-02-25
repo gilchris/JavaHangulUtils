@@ -63,6 +63,25 @@ public class HangulUtilsTest {
     public void testGetFirstJaum_Number() {
         assertEquals("1", HangulUtils.getFirstJaum("123Count"));
         assertEquals("0", HangulUtils.getFirstJaum("0 Cost"));
-        
+    }
+
+    @Test
+    public void testConvertNFDToNFC() {
+        String a = new StringBuilder()
+            .append(Character.toString(4352)) // ㄱ
+            .append(Character.toString(4449)) // ㅏ
+            .append(Character.toString(4540)) // ㅇ
+            .toString();
+        assertEquals("강", HangulUtils.convertNFDToNFC(a));
+
+        String b = new StringBuilder()
+            .append(Character.toString(4355)) // ㄷ
+            .append(Character.toString(4449)) // ㅏ
+            .append(Character.toString(4528)) // ㄹㄱ
+            .toString();
+        assertEquals("닭", HangulUtils.convertNFDToNFC(b));
+
+        String c = "Normal String!!";
+        assertEquals(c, HangulUtils.convertNFDToNFC(c));
     }
 }

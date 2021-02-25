@@ -5,6 +5,12 @@ class HangulUtils {
     private static final String[] JAUM_SYLLABEL = new String[] { "ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ" };
     private static final String[] JAUM_COMPATIVILITY = new String[] { "ㄱ", "ㄲ", "", "ㄴ", "", "", "ㄷ", "ㄸ", "ㄹ", "", "", "", "", "", "", "", "ㅁ", "ㅂ", "ㅃ", "", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ" };
 
+    /**
+     * Finding first jaum
+     * 
+     * @param in text for finding first jaum
+     * @return
+     */
     public static final String getFirstJaum(String in) {
         int intCodePoint = in.codePointAt(0);
 
@@ -56,4 +62,44 @@ class HangulUtils {
         // 그 외
         return "#";
     }
+
+    /**
+     * Converting NFD String to NFC String
+     * 
+     * This function find NFD String in input string and convert it to NFC string.
+     * 
+     * NFD (Normalization Form Canonical Decomposition) is used in MacOS
+     * NFC (Normalization Form Canonical Composition) is used in Windows and Linux
+     * 
+     * @param in
+     * @return
+     */
+	public static Object convertNFDToNFC(String in) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0, l = in.length(); i < l; i++) {
+            int codePoint = in.codePointAt(i);
+            // 초성
+            if (4352 <= codePoint && codePoint <= 4370) {
+                int nfcCodePoint = 44032 + (codePoint - 4352) * 588;
+                codePoint = in.codePointAt(++i);
+                // 중성
+                if (4449 <= codePoint && codePoint <= 4469) {
+                    nfcCodePoint += (codePoint - 4449) * 28;
+                    codePoint = in.codePointAt(++i);
+                    // 종성
+                    if (4520 <= codePoint && codePoint <= 4546) {
+                        nfcCodePoint += (codePoint - 4519);
+                    }
+                }
+                // 초성만 있는 경우
+                else {
+                    nfcCodePoint = codePoint - 4352 + 12593;
+                }
+                sb.append(Character.toString(nfcCodePoint));
+            } else {
+                sb.append(Character.toString(codePoint));
+            }
+        }
+		return sb.toString();
+	}
 }
