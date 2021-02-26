@@ -1,6 +1,8 @@
 package org.gilchris.hangul;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -111,5 +113,22 @@ public class HangulUtilsTest {
 
         String c = "Normal String!!";
         assertEquals(c, HangulUtils.convertNFDToNFC(c));
+    }
+
+    @Test
+    public void testIsHangulCodePoint() {
+        assertTrue(HangulUtils.isHangulCodePoint("가".codePointAt(0)));
+        assertTrue(HangulUtils.isHangulCodePoint("힣".codePointAt(0)));
+        assertTrue(HangulUtils.isHangulCodePoint("ㄱ".codePointAt(0)));
+        assertTrue(HangulUtils.isHangulCodePoint("ㅣ".codePointAt(0)));
+        assertTrue(HangulUtils.isHangulCodePoint(4352)); // ㄱ (NFD)
+        assertTrue(HangulUtils.isHangulCodePoint(4546)); // ㅎ (NFD) 받침
+    }
+
+    @Test
+    public void testIsContainsHangul() {
+        assertTrue(HangulUtils.isContainsHangul("안녕하세요"));
+        assertFalse(HangulUtils.isContainsHangul(".... !!!!"));
+        assertTrue(HangulUtils.isContainsHangul("Hello 반가워요."));
     }
 }

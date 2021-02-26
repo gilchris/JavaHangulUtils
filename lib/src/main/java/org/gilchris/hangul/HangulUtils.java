@@ -124,4 +124,29 @@ class HangulUtils {
         }
 		return sb.toString();
 	}
+
+    /**
+     * if input code point is Hangul, return true
+     * 
+     * @param codePoint
+     * @return
+     */
+    public static final boolean isHangulCodePoint(int codePoint) {
+        return (44032 <= codePoint && codePoint <= 55203) || (12593 <= codePoint && codePoint <= 12643) || (4352 <= codePoint && codePoint <= 4607);
+    }
+
+    /**
+     * if Hangul is found in input string, return true.
+     * 
+     * @param in
+     * @return
+     */
+    public static final boolean isContainsHangul(String in) {
+        for (int i = 0, l = in.length(); i < l; i++) {
+            if (isHangulCodePoint(in.codePointAt(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
