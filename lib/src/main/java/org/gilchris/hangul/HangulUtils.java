@@ -6,10 +6,10 @@ class HangulUtils {
     private static final String[] JAUM_COMPATIVILITY = new String[] { "ㄱ", "ㄲ", "", "ㄴ", "", "", "ㄷ", "ㄸ", "ㄹ", "", "", "", "", "", "", "", "ㅁ", "ㅂ", "ㅃ", "", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ" };
 
     /**
-     * Finding jaum
+     * Finding initial jaum
      * 
      * @param in CodePoint for finding jaum
-     * @return
+     * @return initial jaum if code point is hangul, uppercase character if code point is english, # if other code point
      */
     public static final String getJaum(int intCodePoint) {
         // 조합 한글
